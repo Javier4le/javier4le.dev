@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* ============================================================
+   BRAND TOKENS — sourced from BRAND.md
+   ============================================================ */
+:root {
+  /* Base palette */
+  --background: #0a0a0f;
+  --foreground: #e0e0e8;
+  --card: #12121a;
+  --muted: #1a1a24;
+  --border: #2a2a3a;
+  --muted-foreground: #888899;
+
+  /* Accent palette */
+  --primary: #ff0080;
+  --secondary: #7c3aed;
+  --accent: #00f5ff;
+  --chart-5: #00ff88;
+  --chart-4: #ff6b35;
+}
+
+/* ============================================================
+   TAILWIND 4 THEME — CSS-first config
+   ============================================================ */
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+
+  --font-sans: 'Rajdhani', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ============================================================
+   FONT FACES — local files, no CDN in production
+   ============================================================ */
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Rajdhani-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/Rajdhani-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Rajdhani-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+/* ============================================================
+   RESETS
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Rajdhani', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
