@@ -1,0 +1,26 @@
+---
+import type { Skill } from '../types'
+import { deviconUrl } from '../lib/devicon'
+
+interface Props {
+  skill: Skill
+  accentVar: string
+}
+
+const { skill, accentVar } = Astro.props
+const iconUrl = deviconUrl(skill.icon)
+---
+
+<div
+  class="flex items-center gap-3 p-3 bg-muted border border-border hover:border-[color:var(--card-accent)] transition-colors"
+  style={`--card-accent: var(${accentVar})`}
+>
+  {iconUrl
+    ? <img src={iconUrl} alt={skill.name} width="32" height="32" loading="lazy" />
+    : <span class="w-8 h-8 flex items-center justify-center font-mono text-sm font-bold text-[color:var(--card-accent)]">{skill.name[0]}</span>
+  }
+  <div>
+    <div class="font-mono text-sm text-foreground">{skill.name}</div>
+    <div class="font-mono text-xs text-muted-foreground">{skill.context}</div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+---
+import { deviconUrl } from '../lib/devicon'
+
+interface Props {
+  name: string
+  icon: string
+  href?: string
+}
+const { name, icon, href } = Astro.props
+const url = deviconUrl(icon)
+const chipClass = "inline-flex items-center gap-2 px-4 py-2 bg-muted border border-border font-mono text-sm text-foreground hover:border-primary hover:text-primary transition-colors"
+---
+
+{href ? (
+  <a href={href} target="_blank" rel="noopener noreferrer" class={chipClass}>
+    {url ? (
+      <img src={url} alt={name} width="16" height="16" class="w-4 h-4" />
+    ) : (
+      <span class="w-4 h-4 flex items-center justify-center text-xs font-bold">
+        {name.charAt(0).toUpperCase()}
+      </span>
+    )}
+    {name}
+  </a>
+) : (
+  <span class={chipClass}>
+    {url ? (
+      <img src={url} alt={name} width="16" height="16" class="w-4 h-4" />
+    ) : (
+      <span class="w-4 h-4 flex items-center justify-center text-xs font-bold">
+        {name.charAt(0).toUpperCase()}
+      </span>
+    )}
+    {name}
+  </span>
+)}

@@ -1,0 +1,54 @@
+---
+import type { SkillCategory } from '../types'
+import SkillCard from './SkillCard.astro'
+
+interface Props {
+  skillCategories: SkillCategory[]
+}
+
+const { skillCategories } = Astro.props
+---
+
+<section id="skills" class="py-24 relative" data-animate>
+  <div class="absolute inset-0 gradient-mesh opacity-30" />
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <!-- Heading -->
+    <div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-2">
+        <span class="text-primary font-mono">&gt;</span> Skills
+      </h2>
+      <div class="w-20 h-1 bg-gradient-to-r from-primary to-accent mb-8"></div>
+    </div>
+
+    <!-- Categories grid -->
+    <div class="grid md:grid-cols-2 gap-8">
+      {skillCategories.map((category, i) => (
+        <div
+          class="terminal-window p-6"
+          data-animate
+          data-animate-delay={`${(i + 1) * 150}`}
+        >
+          <!-- Category header -->
+          <div class="terminal-header -m-6 mb-6 px-4 py-2 flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500 opacity-80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500 opacity-80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500 opacity-80"></span>
+            <span
+              class="ml-4 font-mono text-sm font-semibold"
+              style={`color: var(${category.accentVar})`}
+            >
+              {category.name}
+            </span>
+          </div>
+
+          <!-- Skills grid -->
+          <div class="grid grid-cols-2 gap-2">
+            {category.skills.map((skill) => (
+              <SkillCard skill={skill} accentVar={category.accentVar} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
