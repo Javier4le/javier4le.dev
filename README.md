@@ -2,7 +2,7 @@
 
 Personal portfolio. Terminal + Synthwave aesthetic — dark background, neon pink/cyan accents, monospace type, and CSS glitch effects.
 
-**Live:** [javier4le.dev](https://javier4le.dev)
+**Live:** [javier4le-dev.vercel.app](https://javier4le-dev.vercel.app)
 
 ---
 
