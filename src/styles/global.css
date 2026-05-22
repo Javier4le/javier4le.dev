@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+/* ============================================================
+   BRAND TOKENS — sourced from BRAND.md
+   ============================================================ */
+:root {
+  /* Base palette */
+  --background: #0a0a0f;
+  --foreground: #e0e0e8;
+  --card: #12121a;
+  --muted: #1a1a24;
+  --border: #2a2a3a;
+  --muted-foreground: #888899;
+
+  /* Accent palette */
+  --primary: #ff0080;
+  --secondary: #7c3aed;
+  --accent: #00f5ff;
+  --chart-5: #00ff88;
+  --chart-4: #ff6b35;
+}
+
+/* ============================================================
+   TAILWIND 4 THEME — CSS-first config
+   ============================================================ */
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+
+  --font-sans: 'Rajdhani', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ============================================================
+   FONT FACES — local files, no CDN in production
+   ============================================================ */
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Rajdhani-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/Rajdhani-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Rajdhani-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+/* ============================================================
+   RESETS & SCROLL BEHAVIOR
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 4rem; /* compensates for fixed nav when snapping */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Rajdhani', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* force stop at every section, even with fast scroll */
+}
+
+code,
+pre,
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ============================================================
+   MISSING ROOT TOKENS
+   ============================================================ */
+:root {
+  --primary-foreground: #ffffff;
+  --secondary-foreground: #ffffff;
+  --accent-foreground: #0a0a0f;
+  --input: #1a1a24;
+  --ring: #ff0080;
+  --radius: 0.25rem;
+}
+
+/* ============================================================
+   LAYOUT EFFECTS
+   ============================================================ */
+.grid-background {
+  background-image:
+    linear-gradient(rgba(255, 0, 128, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 0, 128, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255, 0, 128, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+}
+
+/* ============================================================
+   GLITCH TEXT EFFECT — text-shadow channel separation (matches prototype)
+   ============================================================ */
+.glitch-text {
+  animation: glitch 3s infinite;
+}
+
+@keyframes glitch {
+  0%, 100% { text-shadow:  2px  0   var(--primary), -2px  0   var(--accent); }
+  25%       { text-shadow: -2px  0   var(--primary),  2px  0   var(--accent); }
+  50%       { text-shadow:  2px -2px var(--primary), -2px  2px var(--accent); }
+  75%       { text-shadow: -2px  2px var(--primary),  2px -2px var(--accent); }
+}
+
+/* ============================================================
+   NEON GLOW EFFECTS
+   ============================================================ */
+.neon-glow-pink {
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.3), 0 0 40px rgba(255, 0, 128, 0.1);
+  border-color: var(--primary);
+}
+
+.neon-glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3), 0 0 40px rgba(0, 245, 255, 0.1);
+  border-color: var(--accent);
+}
+
+.neon-glow-purple {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3), 0 0 40px rgba(124, 58, 237, 0.1);
+  border-color: var(--secondary);
+}
+
+.text-glow-pink {
+  text-shadow: 0 0 10px var(--primary), 0 0 20px rgba(255, 0, 128, 0.5);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 10px var(--accent), 0 0 20px rgba(0, 245, 255, 0.5);
+}
+
+/* ============================================================
+   TERMINAL WINDOW
+   ============================================================ */
+.terminal-window {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ============================================================
+   HOVER GLOW — composable via --hover-glow-color
+   ============================================================ */
+.hover-glow {
+  --hover-glow-color: var(--primary);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.hover-glow-cyan {
+  --hover-glow-color: var(--accent);
+}
+
+.hover-glow:hover {
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--hover-glow-color) 70%, transparent),
+    0 0 35px color-mix(in srgb, var(--hover-glow-color) 25%, transparent);
+  border-color: var(--hover-glow-color);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
+
+/* ============================================================
+   SCROLL ANIMATION (data-animate)
+   ============================================================ */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-animate-delay="100"] { transition-delay: 100ms; }
+[data-animate-delay="150"] { transition-delay: 150ms; }
+[data-animate-delay="200"] { transition-delay: 200ms; }
+[data-animate-delay="250"] { transition-delay: 250ms; }
+[data-animate-delay="300"] { transition-delay: 300ms; }
+[data-animate-delay="400"] { transition-delay: 400ms; }
+[data-animate-delay="450"] { transition-delay: 450ms; }
+[data-animate-delay="500"] { transition-delay: 500ms; }
+[data-animate-delay="600"] { transition-delay: 600ms; }

@@ -1,0 +1,43 @@
+---
+import type { Certification } from '../types'
+
+interface Props {
+  cert: Certification
+}
+
+const { cert } = Astro.props
+
+const statusClasses: Record<string, string> = {
+  obtained: 'border-accent text-accent',
+  'in-progress': 'border-primary text-primary animate-pulse',
+  planned: 'border-border text-muted-foreground',
+}
+
+const statusLabel: Record<string, string> = {
+  obtained: 'Obtenido',
+  'in-progress': 'En curso',
+  planned: 'Planificado',
+}
+---
+
+<div class={`p-4 border ${statusClasses[cert.status]} font-mono`}>
+  <div class="flex items-center justify-between">
+    <div>
+      <div class="text-sm font-bold">{cert.name}</div>
+      <div class="text-xs opacity-70">{cert.issuer}</div>
+    </div>
+    <span class="text-xs px-2 py-1 border border-current">
+      {statusLabel[cert.status]}
+    </span>
+  </div>
+  {cert.status === 'obtained' && cert.credentialUrl && (
+    <a
+      href={cert.credentialUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-xs mt-2 block hover:underline"
+    >
+      Ver credencial →
+    </a>
+  )}
+</div>

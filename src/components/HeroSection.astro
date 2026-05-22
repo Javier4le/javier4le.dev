@@ -1,0 +1,108 @@
+---
+import type { Profile } from '../types/index'
+import HeroIllustration from './HeroIllustration.astro'
+
+interface Props {
+  profile: Profile
+}
+
+const { profile } = Astro.props
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden grid-background">
+  <!-- Gradient mesh background -->
+  <div class="absolute inset-0 gradient-mesh"></div>
+
+  <!-- Animated blur orbs -->
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 blur-[100px] animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 blur-[100px] animate-pulse" style="animation-delay: 1s"></div>
+    <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-secondary/10 blur-[80px] animate-pulse" style="animation-delay: 2s"></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="relative z-10 max-w-6xl mx-auto px-6 py-20 flex flex-col lg:flex-row items-center gap-12">
+    <!-- Text Content -->
+    <div class="flex-1 text-center lg:text-left">
+      <div data-animate-on-load data-animate-delay="0">
+        <p class="font-mono text-sm text-accent mb-4 tracking-widest uppercase">
+          {profile.title}
+        </p>
+      </div>
+
+      <h1
+        class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
+        data-animate-on-load
+        data-animate-delay="100"
+      >
+        <span class="glitch-text text-foreground">Javier</span>
+        <br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">
+          Rojas
+        </span>
+      </h1>
+
+      <p
+        class="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8"
+        data-animate-on-load
+        data-animate-delay="200"
+      >
+        Construyendo experiencias digitales con código limpio, tecnologías modernas y una pasión por la innovación.
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+        data-animate-on-load
+        data-animate-delay="300"
+      >
+        <a
+          href="#projects"
+          class="px-8 py-3 bg-primary text-primary-foreground font-semibold neon-glow-pink hover-glow transition-all"
+        >
+          Ver Proyectos
+        </a>
+        <a
+          href="#contact"
+          class="px-8 py-3 border border-accent text-accent font-semibold hover:bg-accent hover:text-accent-foreground hover-glow hover-glow-cyan transition-all"
+        >
+          Contactar
+        </a>
+      </div>
+    </div>
+
+    <!-- Illustration -->
+    <div
+      class="flex-1 relative"
+      data-animate-on-load
+      data-animate-delay="500"
+    >
+      <HeroIllustration />
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce" aria-hidden="true">
+    <div class="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center pt-2">
+      <div class="w-1 h-2 bg-primary rounded-full animate-pulse"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* data-animate-on-load elements start hidden, revealed by initHeroOnLoad() */
+  [data-animate-on-load] {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  [data-animate-on-load].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  [data-animate-on-load][data-animate-delay="100"] { transition-delay: 100ms; }
+  [data-animate-on-load][data-animate-delay="200"] { transition-delay: 200ms; }
+  [data-animate-on-load][data-animate-delay="300"] { transition-delay: 300ms; }
+  [data-animate-on-load][data-animate-delay="500"] { transition-delay: 500ms; }
+</style>

@@ -1,0 +1,31 @@
+---
+import type { Certification } from '../types'
+import CertBadge from './CertBadge.astro'
+
+interface Props {
+  certifications: Certification[]
+}
+
+const { certifications } = Astro.props
+---
+
+<section id="certifications" class="py-24 relative">
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Heading -->
+    <div data-animate>
+      <h2 class="text-3xl md:text-4xl font-bold mb-2">
+        <span class="text-primary font-mono">&gt;</span> Certifications
+      </h2>
+      <div class="w-20 h-1 bg-gradient-to-r from-primary to-accent mb-8"></div>
+    </div>
+
+    <!-- List -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {certifications.map((cert, i) => (
+        <div data-animate data-animate-delay={`${(i + 1) * 100}`}>
+          <CertBadge cert={cert} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

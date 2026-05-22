@@ -1,0 +1,68 @@
+---
+import type { Profile } from '../types/index'
+import TerminalWindow from './TerminalWindow.astro'
+import TechChip from './TechChip.astro'
+
+interface Props {
+  profile: Profile
+}
+
+const { profile } = Astro.props
+
+const techIcons: Record<string, string> = {
+  'Vue.js': 'vuejs',
+  'React': 'react',
+  'TypeScript': 'typescript',
+  'JavaScript': 'javascript',
+  'Laravel': 'laravel',
+  'PHP': 'php',
+  'Flutter': 'flutter',
+  'Node.js': 'nodejs',
+  'SQL': 'mysql',
+  'Git': 'git',
+  'Astro': 'astro',
+  'HTML/CSS': 'html5',
+}
+
+const icon = (name: string): string => techIcons[name] ?? name.toLowerCase()
+---
+
+<section id="about" class="py-24 relative">
+  <div class="absolute inset-0 gradient-mesh opacity-50"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <!-- Heading -->
+    <div data-animate>
+      <h2 class="text-3xl md:text-4xl font-bold mb-2">
+        <span class="text-primary font-mono">&gt;</span> About
+      </h2>
+      <div class="w-20 h-1 bg-gradient-to-r from-primary to-accent mb-8"></div>
+    </div>
+
+    <!-- Grid: bio + tech -->
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <!-- Bio -->
+      <div data-animate data-animate-delay="150">
+        <TerminalWindow filename="~/about.ts">
+          {profile.bio.map((paragraph) => (
+            <p class="text-muted-foreground leading-relaxed mb-4 last:mb-0">
+              {paragraph}
+            </p>
+          ))}
+        </TerminalWindow>
+      </div>
+
+      <!-- Tech Stack -->
+      <div data-animate data-animate-delay="300">
+        <h3 class="font-mono text-accent text-sm mb-4 tracking-wider">
+          {"// TECH_STACK"}
+        </h3>
+        <div class="flex flex-wrap gap-3">
+          {profile.tech.map((tech) => (
+            <TechChip name={tech} icon={icon(tech)} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

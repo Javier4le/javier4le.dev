@@ -1,0 +1,256 @@
+---
+// No props — navigation is global
+---
+
+<nav
+  id="main-nav"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+>
+  <!-- Main bar -->
+  <div class="max-w-6xl mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <a
+        href="#"
+        class="font-mono text-xl font-bold text-foreground hover:text-primary transition-colors"
+      >
+        <span class="text-primary">&lt;</span>JR<span class="text-accent">/</span><span class="text-primary">&gt;</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <ul class="hidden md:flex items-center gap-8 list-none m-0 p-0" role="list">
+        <li>
+          <a href="#about" class="font-medium text-muted-foreground hover:text-primary transition-colors relative group">
+            About
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#projects" class="font-medium text-muted-foreground hover:text-primary transition-colors relative group">
+            Projects
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#skills" class="font-medium text-muted-foreground hover:text-primary transition-colors relative group">
+            Skills
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#contact" class="font-medium text-muted-foreground hover:text-primary transition-colors relative group">
+            Contact
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Hamburger — CSS-animated lines -->
+      <button
+        id="hamburger"
+        class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-0 text-foreground hover:text-primary transition-colors"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span class="ham-line ham-line-1"></span>
+        <span class="ham-line ham-line-2"></span>
+        <span class="ham-line ham-line-3"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile panel — full nav width, slides down -->
+  <div id="mobile-menu" class="mobile-panel md:hidden" aria-hidden="true">
+    <div class="max-w-6xl mx-auto px-6 pb-4">
+      <!-- Terminal header -->
+      <div class="flex items-center gap-2 pt-3 pb-3 mb-1 border-b border-border">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500 opacity-80"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-yellow-500 opacity-80"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-chart-5 opacity-80"></span>
+        <span class="ml-3 font-mono text-xs text-muted-foreground">nav.sh</span>
+      </div>
+
+      <ul class="list-none m-0 p-0" role="list">
+        <li class="nav-item" style="--i:0">
+          <a href="#about" class="nav-link">
+            <span class="nav-num">01.</span>
+            <span>About</span>
+            <span class="nav-arrow">→</span>
+          </a>
+        </li>
+        <li class="nav-item" style="--i:1">
+          <a href="#projects" class="nav-link">
+            <span class="nav-num">02.</span>
+            <span>Projects</span>
+            <span class="nav-arrow">→</span>
+          </a>
+        </li>
+        <li class="nav-item" style="--i:2">
+          <a href="#skills" class="nav-link">
+            <span class="nav-num">03.</span>
+            <span>Skills</span>
+            <span class="nav-arrow">→</span>
+          </a>
+        </li>
+        <li class="nav-item" style="--i:3">
+          <a href="#contact" class="nav-link">
+            <span class="nav-num">04.</span>
+            <span>Contact</span>
+            <span class="nav-arrow">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const nav = document.getElementById('main-nav')
+  const hamburger = document.getElementById('hamburger')
+  const mobileMenu = document.getElementById('mobile-menu')
+
+  function openMenu() {
+    nav?.classList.add('is-open')
+    mobileMenu?.setAttribute('aria-hidden', 'false')
+    hamburger?.setAttribute('aria-expanded', 'true')
+    hamburger?.classList.add('is-active')
+  }
+
+  function closeMenu() {
+    nav?.classList.remove('is-open')
+    mobileMenu?.setAttribute('aria-hidden', 'true')
+    hamburger?.setAttribute('aria-expanded', 'false')
+    hamburger?.classList.remove('is-active')
+  }
+
+  hamburger?.addEventListener('click', () => {
+    nav?.classList.contains('is-open') ? closeMenu() : openMenu()
+  })
+
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu)
+  })
+
+  // Scroll detection
+  window.addEventListener('scroll', () => {
+    if (!nav) return
+    nav.classList.toggle('is-scrolled', window.scrollY > 8)
+  }, { passive: true })
+</script>
+
+<style>
+  /* ── Scrolled state ── */
+  #main-nav.is-scrolled {
+    background-color: color-mix(in srgb, var(--background) 90%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Hamburger lines ── */
+  .ham-line {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    margin: 3px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+    transform-origin: center;
+  }
+
+  .ham-line-3 {
+    width: 14px; /* shorter bottom line — asymmetric detail */
+  }
+
+  #hamburger.is-active .ham-line-1 {
+    transform: translateY(8px) rotate(45deg);
+  }
+  #hamburger.is-active .ham-line-2 {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  #hamburger.is-active .ham-line-3 {
+    width: 22px;
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* ── Mobile panel ── */
+  .mobile-panel {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    background: var(--card);
+    border-top: 2px solid var(--primary);
+    box-shadow: 0 8px 32px color-mix(in srgb, var(--primary) 10%, transparent);
+    transition:
+      max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.28s ease-out;
+  }
+
+  #main-nav.is-open .mobile-panel {
+    max-height: 420px;
+    opacity: 1;
+  }
+
+  /* ── Nav items — stagger in ── */
+  .nav-item {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  #main-nav.is-open .nav-item {
+    animation: navItemIn 0.28s ease-out forwards;
+    animation-delay: calc(var(--i) * 55ms + 130ms);
+  }
+
+  @keyframes navItemIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── Nav link styling ── */
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    text-decoration: none;
+    transition: color 0.2s ease, gap 0.2s ease;
+  }
+
+  .nav-link:last-of-type {
+    border-bottom: none;
+  }
+
+  .nav-link:hover {
+    color: var(--foreground);
+    gap: 1rem;
+  }
+
+  .nav-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--primary);
+    opacity: 0.7;
+    min-width: 1.75rem;
+  }
+
+  .nav-arrow {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: var(--primary);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .nav-link:hover .nav-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
