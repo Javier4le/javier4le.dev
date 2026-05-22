@@ -20,25 +20,25 @@
       <!-- Desktop Navigation -->
       <ul class="hidden md:flex items-center gap-8 list-none m-0 p-0" role="list">
         <li>
-          <a href="#about" class="font-medium text-muted-foreground hover:text-primary transition-colors relative group">
+          <a href="#about" data-nav-link="about" class="desktop-link font-medium text-muted-foreground hover:text-primary transition-colors relative group">
             About
             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
         <li>
-          <a href="#projects" class="font-medium text-muted-foreground hover:text-primary transition-colors relative group">
+          <a href="#projects" data-nav-link="projects" class="desktop-link font-medium text-muted-foreground hover:text-primary transition-colors relative group">
             Projects
             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
         <li>
-          <a href="#skills" class="font-medium text-muted-foreground hover:text-primary transition-colors relative group">
+          <a href="#skills" data-nav-link="skills" class="desktop-link font-medium text-muted-foreground hover:text-primary transition-colors relative group">
             Skills
             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
         <li>
-          <a href="#contact" class="font-medium text-muted-foreground hover:text-primary transition-colors relative group">
+          <a href="#contact" data-nav-link="contact" class="desktop-link font-medium text-muted-foreground hover:text-primary transition-colors relative group">
             Contact
             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
@@ -72,28 +72,28 @@
 
       <ul class="list-none m-0 p-0" role="list">
         <li class="nav-item" style="--i:0">
-          <a href="#about" class="nav-link">
+          <a href="#about" data-nav-link="about" class="nav-link">
             <span class="nav-num">01.</span>
             <span>About</span>
             <span class="nav-arrow">→</span>
           </a>
         </li>
         <li class="nav-item" style="--i:1">
-          <a href="#projects" class="nav-link">
+          <a href="#projects" data-nav-link="projects" class="nav-link">
             <span class="nav-num">02.</span>
             <span>Projects</span>
             <span class="nav-arrow">→</span>
           </a>
         </li>
         <li class="nav-item" style="--i:2">
-          <a href="#skills" class="nav-link">
+          <a href="#skills" data-nav-link="skills" class="nav-link">
             <span class="nav-num">03.</span>
             <span>Skills</span>
             <span class="nav-arrow">→</span>
           </a>
         </li>
         <li class="nav-item" style="--i:3">
-          <a href="#contact" class="nav-link">
+          <a href="#contact" data-nav-link="contact" class="nav-link">
             <span class="nav-num">04.</span>
             <span>Contact</span>
             <span class="nav-arrow">→</span>
@@ -131,11 +131,28 @@
     link.addEventListener('click', closeMenu)
   })
 
-  // Scroll detection
+  // Scroll detection — nav background
   window.addEventListener('scroll', () => {
     if (!nav) return
     nav.classList.toggle('is-scrolled', window.scrollY > 8)
   }, { passive: true })
+
+  // Active section detection
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = (entry.target as HTMLElement).id
+          navLinks.forEach((link) => {
+            link.classList.toggle('is-active', link.dataset.navLink === id)
+          })
+        }
+      })
+    },
+    { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+  )
+  document.querySelectorAll<HTMLElement>('section[id]').forEach((s) => sectionObserver.observe(s))
 </script>
 
 <style>
@@ -252,5 +269,25 @@
   .nav-link:hover .nav-arrow {
     opacity: 1;
     transform: translateX(0);
+  }
+
+  /* ── Active section state ── */
+  .desktop-link.is-active {
+    color: var(--primary);
+  }
+  .desktop-link.is-active > span:last-child {
+    width: 100%;
+  }
+
+  .nav-link.is-active {
+    color: var(--foreground);
+  }
+  .nav-link.is-active .nav-num {
+    opacity: 1;
+  }
+  .nav-link.is-active .nav-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--accent);
   }
 </style>
