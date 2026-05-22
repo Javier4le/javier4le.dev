@@ -88,8 +88,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  scroll-padding-top: 4rem; /* compensates for fixed nav when snapping */
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 4rem;
 }
 
 body {
@@ -102,7 +102,6 @@ body {
 
 section {
   scroll-snap-align: start;
-  scroll-snap-stop: always; /* force stop at every section, even with fast scroll */
 }
 
 code,
