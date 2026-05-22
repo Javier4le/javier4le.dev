@@ -1,6 +1,8 @@
-# Javier Rojas — Portfolio
+# javier4le.dev
 
-Personal portfolio built with Astro 5 and Tailwind CSS 4. Terminal + Synthwave aesthetic — dark background, neon pink/cyan accents, monospace type, and glitch effects.
+Personal portfolio. Terminal + Synthwave aesthetic — dark background, neon pink/cyan accents, monospace type, and CSS glitch effects.
+
+**Live:** [javier4le-dev.vercel.app](https://javier4le-dev.vercel.app)
 
 ---
 
@@ -11,15 +13,40 @@ Personal portfolio built with Astro 5 and Tailwind CSS 4. Terminal + Synthwave a
 - **TypeScript** — strict mode, no `any`
 - **Formspree** — contact form without a backend
 
-## Design
+Fonts served locally from `public/fonts/`. No Google Fonts CDN.
 
-Ported from a Next.js/React prototype. The aesthetic draws from hacker terminals and 80s synthwave: `Rajdhani` for headings, `JetBrains Mono` for code-style labels, scroll-snap navigation, CSS glitch animation on the hero name, and IntersectionObserver-based scroll-reveal on every section.
+---
 
-Fonts are served locally from `public/fonts/` — no Google Fonts CDN.
+## How it was built
 
-## Process
+### Design
 
-Built using a spec-driven workflow (SDD): explore → propose → spec → design → tasks → apply → verify → archive. Each feature was planned before implementation and verified against its spec before merging. This kept scope tight and the codebase coherent across multiple sessions.
+The aesthetic was defined through a conversation with [v0.dev](https://v0.dev) (Vercel's AI design tool): Terminal + Synthwave, dark theme, neon pink/cyan, JetBrains Mono, glitch effect on the hero name. v0 produced a visual prototype in Next.js — not as production code, but as a design artifact to validate the concept quickly.
+
+That prototype was then discarded. What mattered was the design language it proved out.
+
+### Implementation
+
+The actual site was built from scratch in Astro, making deliberate technology choices:
+
+- **SSG over a React SPA** — a portfolio is static content; no reason to ship a runtime
+- **Tailwind 4's CSS-first config** — design tokens in `:root`, no JS config file
+- **Fonts locally** — performance and no external dependency
+- **AJAX form submission** — Formspree without page redirect or bfcache issues
+
+### Workflow
+
+Development followed a spec-driven process (SDD) with AI assistance:
+
+```
+explore → propose → spec → design → tasks → apply → verify → archive
+```
+
+Each feature was specified before being coded, and verified against its spec before merging. AI agents handled implementation under human direction — reviewing plans, catching edge cases, writing code to spec. The human role was architecture, decisions, and review.
+
+This is the opposite of vibecoding: no prompting until something "looks right," no generating and hoping. Every change had a clear intent, a written spec, and a verification step.
+
+---
 
 ## Development
 
@@ -32,20 +59,14 @@ pnpm preview    # preview the build locally
 
 ## Configuration
 
-All personal content lives in two files:
+All personal content lives in:
 
 | File | Content |
 |------|---------|
 | `src/data/profile.ts` | Name, title, bio, tech stack, social links, Formspree ID |
-| `src/data/projects.ts` | Project list with title, description, stack, and links |
-
-Skill categories and certifications are in `src/data/skills.ts` and `src/data/certifications.ts`.
-
-## Deployment
-
-Deployed to Vercel (static). No build environment variables required — all configuration is in source.
-
-Connect the GitHub repo to Vercel and it auto-deploys on every push to `main`.
+| `src/data/projects.ts` | Projects with title, description, stack, and links |
+| `src/data/skills.ts` | Skill categories |
+| `src/data/certifications.ts` | Certifications |
 
 ## License
 
