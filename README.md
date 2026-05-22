@@ -1,43 +1,52 @@
-# Astro Starter Kit: Minimal
+# Javier Rojas — Portfolio
 
-```sh
-pnpm create astro@latest -- --template minimal
+Personal portfolio built with Astro 5 and Tailwind CSS 4. Terminal + Synthwave aesthetic — dark background, neon pink/cyan accents, monospace type, and glitch effects.
+
+---
+
+## Stack
+
+- **Astro 5** — static site generation, zero JS by default
+- **Tailwind CSS 4** — CSS-first config via `@theme` block
+- **TypeScript** — strict mode, no `any`
+- **Formspree** — contact form without a backend
+
+## Design
+
+Ported from a Next.js/React prototype. The aesthetic draws from hacker terminals and 80s synthwave: `Rajdhani` for headings, `JetBrains Mono` for code-style labels, scroll-snap navigation, CSS glitch animation on the hero name, and IntersectionObserver-based scroll-reveal on every section.
+
+Fonts are served locally from `public/fonts/` — no Google Fonts CDN.
+
+## Process
+
+Built using a spec-driven workflow (SDD): explore → propose → spec → design → tasks → apply → verify → archive. Each feature was planned before implementation and verified against its spec before merging. This kept scope tight and the codebase coherent across multiple sessions.
+
+## Development
+
+```bash
+pnpm install
+pnpm dev        # http://localhost:4321
+pnpm build      # static output → dist/
+pnpm preview    # preview the build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Configuration
 
-## 🚀 Project Structure
+All personal content lives in two files:
 
-Inside of your Astro project, you'll see the following folders and files:
+| File | Content |
+|------|---------|
+| `src/data/profile.ts` | Name, title, bio, tech stack, social links, Formspree ID |
+| `src/data/projects.ts` | Project list with title, description, stack, and links |
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Skill categories and certifications are in `src/data/skills.ts` and `src/data/certifications.ts`.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Deployed to Vercel (static). No build environment variables required — all configuration is in source.
 
-Any static assets, like images, can be placed in the `public/` directory.
+Connect the GitHub repo to Vercel and it auto-deploys on every push to `main`.
 
-## 🧞 Commands
+## License
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+MIT
