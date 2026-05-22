@@ -11,7 +11,7 @@ const { project } = Astro.props
 const slug = project.title.toLowerCase().replace(/\s+/g, '-')
 ---
 
-<div class="terminal-window group hover-glow transition-all duration-700" data-animate>
+<div class="terminal-window group hover-glow transition-all duration-700">
   <TerminalWindow filename={`~/${slug}`}>
     <!-- Preview area -->
     <div class="h-40 bg-gradient-to-br from-muted to-background flex items-center justify-center border-b border-border relative overflow-hidden -mx-6 -mt-6 mb-0">

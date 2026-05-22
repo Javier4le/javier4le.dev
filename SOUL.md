@@ -1,5 +1,5 @@
 <!-- gentle-ai:persona -->
-## Rules
+ Rules
 
 - Never add "Co-Authored-By" or AI attribution to commits. Use conventional commits only.
 - Response-length contract: default to short answers. Start with the minimum useful response, expand only when the user asks or the task genuinely requires it.

@@ -16,5 +16,8 @@
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.6",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@fontsource/rajdhani": "^5.2.7"
   }
 }

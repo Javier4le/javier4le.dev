@@ -31,8 +31,10 @@
   --color-border: var(--border);
   --color-muted-foreground: var(--muted-foreground);
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
 
@@ -56,7 +58,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('/fonts/Rajdhani-SemiBold.woff2') format('woff2');
+  src: url('/fonts/Rajdhani-SemiBold.woff') format('woff');
 }
 
 @font-face {
@@ -76,12 +78,18 @@
 }
 
 /* ============================================================
-   RESETS
+   RESETS & SCROLL BEHAVIOR
    ============================================================ */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 4rem; /* compensates for fixed nav when snapping */
 }
 
 body {
@@ -90,6 +98,11 @@ body {
   font-family: 'Rajdhani', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* force stop at every section, even with fast scroll */
 }
 
 code,
@@ -128,42 +141,17 @@ pre,
 }
 
 /* ============================================================
-   GLITCH TEXT EFFECT
+   GLITCH TEXT EFFECT — text-shadow channel separation (matches prototype)
    ============================================================ */
 .glitch-text {
-  position: relative;
-}
-
-.glitch-text::before,
-.glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.glitch-text::before {
-  color: var(--primary);
   animation: glitch 3s infinite;
-  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-  transform: translate(-2px, 0);
-}
-
-.glitch-text::after {
-  color: var(--accent);
-  animation: glitch 3s infinite reverse;
-  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-  transform: translate(2px, 0);
 }
 
 @keyframes glitch {
-  0%, 100% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(2px, -2px); }
-  60% { transform: translate(-1px, 1px); }
-  80% { transform: translate(1px, -1px); }
+  0%, 100% { text-shadow:  2px  0   var(--primary), -2px  0   var(--accent); }
+  25%       { text-shadow: -2px  0   var(--primary),  2px  0   var(--accent); }
+  50%       { text-shadow:  2px -2px var(--primary), -2px  2px var(--accent); }
+  75%       { text-shadow: -2px  2px var(--primary),  2px -2px var(--accent); }
 }
 
 /* ============================================================
@@ -212,15 +200,23 @@ pre,
 }
 
 /* ============================================================
-   HOVER GLOW
+   HOVER GLOW — composable via --hover-glow-color
    ============================================================ */
 .hover-glow {
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  --hover-glow-color: var(--primary);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.hover-glow-cyan {
+  --hover-glow-color: var(--accent);
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 20px rgba(255, 0, 128, 0.2), 0 0 40px rgba(255, 0, 128, 0.05);
-  border-color: var(--primary);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--hover-glow-color) 70%, transparent),
+    0 0 35px color-mix(in srgb, var(--hover-glow-color) 25%, transparent);
+  border-color: var(--hover-glow-color);
+  transform: translateY(-2px);
 }
 
 /* ============================================================
@@ -267,4 +263,6 @@ pre,
 [data-animate-delay="250"] { transition-delay: 250ms; }
 [data-animate-delay="300"] { transition-delay: 300ms; }
 [data-animate-delay="400"] { transition-delay: 400ms; }
+[data-animate-delay="450"] { transition-delay: 450ms; }
 [data-animate-delay="500"] { transition-delay: 500ms; }
+[data-animate-delay="600"] { transition-delay: 600ms; }

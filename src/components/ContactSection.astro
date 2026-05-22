@@ -9,23 +9,23 @@ const { formspreeId, github, linkedin } = Astro.props
 const formConfigured = formspreeId !== ''
 ---
 
-<section id="contact" class="py-24 relative" data-animate>
+<section id="contact" class="py-24 relative">
   <div class="absolute inset-0 gradient-mesh opacity-40" />
   <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
     <!-- Heading -->
-    <div>
+    <div data-animate>
       <h2 class="text-3xl md:text-4xl font-bold mb-2">
         <span class="text-primary font-mono">&gt;</span> Contact
       </h2>
       <div class="w-20 h-1 bg-gradient-to-r from-primary to-accent mb-8 mx-auto"></div>
     </div>
 
-    <p class="text-muted-foreground mb-8 max-w-xl mx-auto">
-      ¿Tenés un proyecto en mente o querés charlar sobre tecnología? Escribime.
+    <p class="text-muted-foreground mb-8 max-w-xl mx-auto" data-animate data-animate-delay="100">
+      ¿Tienes un proyecto en mente o quieres hablar sobre tecnología? Escríbeme.
     </p>
 
     <!-- Social links -->
-    <div class="flex justify-center gap-6 mb-10">
+    <div class="flex justify-center gap-6 mb-10" data-animate data-animate-delay="200">
       <a
         href={github}
         target="_blank"
@@ -46,39 +46,52 @@ const formConfigured = formspreeId !== ''
 
     <!-- Form or notice -->
     {formConfigured ? (
-      <form
-        action={`https://formspree.io/f/${formspreeId}`}
-        method="POST"
-        class="max-w-md mx-auto mt-8 space-y-4 text-left"
-      >
-        <input
-          type="text"
-          name="name"
-          placeholder="Nombre"
-          required
-          class="w-full px-4 py-3 bg-muted border border-border text-foreground font-mono focus:border-primary outline-none"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-          class="w-full px-4 py-3 bg-muted border border-border text-foreground font-mono focus:border-primary outline-none"
-        />
-        <textarea
-          name="message"
-          placeholder="Mensaje"
-          rows="4"
-          required
-          class="w-full px-4 py-3 bg-muted border border-border text-foreground font-mono focus:border-primary outline-none resize-none"
-        ></textarea>
-        <button
-          type="submit"
-          class="w-full px-8 py-3 bg-primary text-primary-foreground font-bold hover-glow neon-glow-pink transition-all"
+      <div class="max-w-md mx-auto mt-8" data-animate data-animate-delay="300">
+        <!-- Success state — shown after AJAX submit -->
+        <div id="form-success" class="hidden terminal-window p-8 text-center">
+          <p class="font-mono text-sm text-muted-foreground mb-2">
+            <span class="text-accent">$</span> message.send() — <span class="text-chart-5">200 OK</span>
+          </p>
+          <p class="text-foreground font-semibold">Mensaje enviado.</p>
+          <p class="text-muted-foreground text-sm mt-2">Te respondo a la brevedad.</p>
+        </div>
+
+        <form
+          id="contact-form"
+          action={`https://formspree.io/f/${formspreeId}`}
+          method="POST"
+          class="space-y-4 text-left"
         >
-          Enviar mensaje →
-        </button>
-      </form>
+          <input
+            type="text"
+            name="name"
+            placeholder="Nombre"
+            required
+            class="w-full px-4 py-3 bg-muted border border-border text-foreground font-mono focus:border-primary outline-none"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+            class="w-full px-4 py-3 bg-muted border border-border text-foreground font-mono focus:border-primary outline-none"
+          />
+          <textarea
+            name="message"
+            placeholder="Mensaje"
+            rows="4"
+            required
+            class="w-full px-4 py-3 bg-muted border border-border text-foreground font-mono focus:border-primary outline-none resize-none"
+          ></textarea>
+          <button
+            id="contact-submit"
+            type="submit"
+            class="w-full px-8 py-3 bg-primary text-primary-foreground font-bold hover-glow neon-glow-pink transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Enviar mensaje →
+          </button>
+        </form>
+      </div>
     ) : (
       <div class="terminal-window max-w-md mx-auto mt-8 p-6 font-mono text-sm text-muted-foreground">
         // FORMSPREE_ID not set in src/data/profile.ts
@@ -86,3 +99,37 @@ const formConfigured = formspreeId !== ''
     )}
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null
+  const successEl = document.getElementById('form-success')
+  const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement | null
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    if (submitBtn) {
+      submitBtn.disabled = true
+      submitBtn.textContent = 'Enviando...'
+    }
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      })
+      if (res.ok) {
+        form.reset()
+        form.classList.add('hidden')
+        successEl?.classList.remove('hidden')
+      } else {
+        if (submitBtn) {
+          submitBtn.disabled = false
+          submitBtn.textContent = 'Enviar mensaje →'
+        }
+      }
+    } catch {
+      // Network error — fall back to native redirect
+      form.submit()
+    }
+  })
+</script>
