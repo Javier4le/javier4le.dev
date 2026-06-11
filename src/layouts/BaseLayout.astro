@@ -10,17 +10,17 @@ interface Props {
 const {
   title = 'Javier Rojas — Software Developer',
   description = 'Software Developer · IA · Ciberseguridad',
-  ogImage = '/favicon.png',
+  ogImage = '/og-image.png',
 } = Astro.props
 
 const canonicalUrl = Astro.url.href
+const absoluteOgImage = new URL(ogImage, Astro.site).href
 ---
 
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -38,13 +38,13 @@ const canonicalUrl = Astro.url.href
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={absoluteOgImage} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={absoluteOgImage} />
   </head>
   <body>
     <slot />

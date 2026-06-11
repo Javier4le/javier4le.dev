@@ -14,7 +14,7 @@ import { skillCategories } from '../data/skills'
 import { certifications } from '../data/certifications'
 ---
 
-<BaseLayout title={`${profile.name} — Portfolio`} description={profile.bio[0]}>
+<BaseLayout title={`${profile.name} — Portfolio`} description={profile.shortBio}>
   <Navigation />
   <HeroSection profile={profile} />
   <AboutSection profile={profile} />

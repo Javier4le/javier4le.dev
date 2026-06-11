@@ -3,6 +3,7 @@ import type { Profile } from '../types/index'
 export const profile: Profile = {
   name: "Javier Rojas",
   title: "Software Developer · IA · Ciberseguridad",
+  shortBio: "Full-stack developer con Vue.js, Laravel y TypeScript. Construyo aplicaciones web reales con arquitectura limpia, aplicando IA y ciberseguridad ofensiva.",
   bio: [
     "Técnico en Informática por la Universidad Técnica Federico Santa María, con formación sólida en fundamentos de software, redes y sistemas. Me especializo en desarrollo de software con un enfoque metódico: primero entiendo el problema, luego diseño la solución.",
     "Trabajo con Vue.js y React en el frontend, Laravel y Node.js en el backend, y estoy en constante aprendizaje de inteligencia artificial aplicada y ciberseguridad ofensiva. Creo en construir con bases sólidas — arquitectura limpia, código mantenible y entregas reales.",

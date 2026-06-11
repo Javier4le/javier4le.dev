@@ -3,6 +3,7 @@
 export interface Profile {
   name: string
   title: string
+  shortBio: string
   bio: string[]
   tech: string[]
   github: string
@@ -35,10 +36,10 @@ export type CertificationStatus = 'obtained' | 'in-progress' | 'planned'
 
 export interface Certification {
   name: string
-  fullName: string
+  fullName?: string
   issuer: string
   status: CertificationStatus
   date: string
   badgeUrl?: string | null
-  credentialUrl: string | null
+  credentialUrl?: string | null
 }
