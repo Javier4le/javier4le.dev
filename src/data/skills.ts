@@ -22,7 +22,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Node.js", icon: "nodejs", context: "Producción" },
       { name: "MySQL", icon: "mysql", context: "Producción" },
       { name: "PostgreSQL", icon: "postgresql", context: "En uso" },
-      { name: "REST APIs", icon: "fastapi", context: "Producción" },
+      { name: "REST APIs", icon: "swagger", context: "Producción" },
     ],
   },
   {
@@ -30,8 +30,7 @@ export const skillCategories: SkillCategory[] = [
     accentVar: "--secondary",
     skills: [
       { name: "Prompt Engineering", icon: "openai", context: "En aprendizaje" },
-      { name: "AI Tools", icon: "openai", context: "Uso diario" },
-      { name: "Automatización", icon: "n8n", context: "En aprendizaje" },
+      { name: "Claude / ChatGPT", icon: "openai", context: "Uso diario" },
       { name: "n8n", icon: "n8n", context: "En aprendizaje" },
     ],
   },

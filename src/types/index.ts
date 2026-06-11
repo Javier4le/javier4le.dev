@@ -3,6 +3,7 @@
 export interface Profile {
   name: string
   title: string
+  shortBio: string
   bio: string[]
   tech: string[]
   github: string
